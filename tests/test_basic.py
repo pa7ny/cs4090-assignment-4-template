@@ -19,5 +19,17 @@ def test_load_tasks_valid(setup_valid_json):
    assert load_tasks(setup_valid_json) == [{"task": "Buy coffee"}, {"task": "Debug code"}]
 
 
-def test_save_tasks():
+def test_save_tasks(tmp_path):
+   tasks = [{"task": "Clean kitchen"}, {"task": "Buy bread"}]
+   file_path = tmp_path / TEST_FILE
+
+   save_tasks(tasks, file_path)
+
+   with open(file_path, "r") as f:
+      saved_data = json.load(f)
+
+   assert saved_data == tasks
+
+
+def test_generate_unique_id():
    
